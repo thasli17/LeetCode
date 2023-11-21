@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        tr, td {
+            border: 1px solid black;
+        }
+        button {
+            margin: 15px;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <tr>
+            <td>Name</td>
+            <td>Set <input type="checkbox" id="setAll"></td>
+        </tr>
+        <tr>
+            <td>A</td>
+            <td><input type="checkbox" class="individualCheckbox"></td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td><input type="checkbox" class="individualCheckbox"></td>
+        </tr>
+        <tr>
+            <td>C</td>
+            <td><input type="checkbox" class="individualCheckbox"></td>
+        </tr>
+        <tr>
+            <td>D</td>
+            <td><input type="checkbox" class="individualCheckbox"></td>
+        </tr>
+    </table>
+    <button id="submitButton" disabled>Submit</button>
+
+    <script>
+        const setAllCheckbox = document.getElementById('setAll');
+        const individualCheckboxes = document.querySelectorAll('.individualCheckbox');
+        const submitButton = document.getElementById('submitButton');
+
+        // Function to handle "Set" checkbox click event
+        setAllCheckbox.addEventListener('click', function () {
+            individualCheckboxes.forEach(function (checkbox) {
+                checkbox.checked = setAllCheckbox.checked;
+            });
+
+            updateSubmitButtonStatus();
+        });
+
+        // Function to handle individual checkbox click event
+        individualCheckboxes.forEach(function (checkbox) {
+            checkbox.addEventListener('click', function () {
+                updateSubmitButtonStatus();
+            });
+        });  
+
+        // Function to update the status of the Submit button
+        function updateSubmitButtonStatus() {
+            let atLeastOneChecked = false;
+            individualCheckboxes.forEach(function (checkbox) {
+                if (checkbox.checked) {
+                    atLeastOneChecked = true;
+                }
+            });
+
+            submitButton.disabled = !atLeastOneChecked;
+        }
+    </script>
+</body>
+</html>
